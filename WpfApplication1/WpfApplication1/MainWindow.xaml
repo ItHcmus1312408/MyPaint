@@ -1,0 +1,305 @@
+﻿<Window x:Class="adorners.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    Title="My Paint" Height="688.172" Width="1175.97" Loaded="Window_Loaded">
+
+    <Grid Margin="0,0,-396,158">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Ribbon x:Name="RibbonWin"  SelectedIndex="0" Margin="0,0,396,0">
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
+                    <RibbonButton x:Name ="Save" SmallImageSource="Images\Save.png" Click="button_save_Click" />
+                    <RibbonButton x:Name ="Undo" SmallImageSource="Images\undo.png" Click="btn_undo">
+                    </RibbonButton>
+                    <RibbonButton x:Name="Redo" SmallImageSource="Images\redo.png" Click="btn_redo">
+                    </RibbonButton>
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu KeyTip="F">
+                    <RibbonApplicationMenuItem Header="New" ImageSource="Images\new.png" Click="button_new_Click" KeyTip="Ctrl+N"/>
+                    <RibbonApplicationMenuItem Header="Open" ImageSource="Images\open.png" Click="button_open_Click"/>
+                    <RibbonApplicationMenuItem Header="Save" ImageSource="Images\save_icon.png" Click="button_save_Click"/>
+                    <RibbonApplicationMenuItem Header="Options" ImageSource="Images\option.png"/>
+                    <RibbonApplicationMenuItem Header="Exit" ImageSource="Images\quit.png" Click="button_exit_Click"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            <!-- Ribbon Tab #1: Home -->
+            <RibbonTab Header="Home" KeyTip="H" >
+                <!-- Home  group-->
+                <RibbonGroup x:Name="ClipboardGroup" Header="Clipboard">
+                    <RibbonMenuButton LargeImageSource="Images\paste.png" Label="Paste" KeyTip="V">
+                        <RibbonMenuItem ImageSource="Images\paste.png" Header="Paste" KeyTip="P" Click="btn_paste" />
+                        <RibbonMenuItem ImageSource="Images\paste_from.png" Header="Paste from..." KeyTip="F" Click="button_open_Click"/>
+                    </RibbonMenuButton>
+                    <RibbonButton SmallImageSource="Images\cut.png" Label="Cut" KeyTip="X" Click="btn_save_clipboard"/>
+                    <RibbonButton SmallImageSource="Images\copy.png" Label="Copy" KeyTip="C" Click="btn_save_clipboard"/>
+                    <RibbonButton SmallImageSource="Images\format_painter.png" Label="Format Painter" KeyTip="FP" />
+                </RibbonGroup>
+                <RibbonGroup Header="Shapes" Margin="0,1" Width="204">
+                    <Button x:Name ="Line_shape" HorizontalAlignment="Center" Height="28" VerticalAlignment="Center" Width="46" Click="Line_shape_Click" Background="#FFDDDDDD" Margin="0,5,0,0" Grid.Row="1">
+                        <Image Source="Images/line.png" Width="48"/>
+                    </Button>
+                    <Button Name ="Ellipse_shape" HorizontalAlignment="Center" Height="28" Margin="46,-28,0,0" VerticalAlignment="Center" Width="46" Click="Ellipse_shape_Click" Grid.Row="1" >
+                        <Ellipse HorizontalAlignment="Left" Height="14" Stroke="Black" VerticalAlignment="Top" Width="28"/>
+                    </Button>
+                    <Button Name ="Rectangle_shape" HorizontalAlignment="Left" Height="28" Margin="92,-28,0,0" VerticalAlignment="Top" Width="46" Click="Rectangle_shape_Click" Grid.Row="1" >
+                        <Rectangle HorizontalAlignment="Left" Height="11" Stroke="Black" VerticalAlignment="Top" Width="24" RenderTransformOrigin="-2,1.182"/>
+                    </Button>
+                    <Button x:Name ="Square_shape" HorizontalAlignment="Center" Height="28" Margin="0,0,23,0" VerticalAlignment="Center" Width="46" Click="Square_shape_Click" Grid.Row="1" >
+                        <Rectangle HorizontalAlignment="Left" Height="15" Stroke="Black" VerticalAlignment="Top" Width="15" RenderTransformOrigin="-2,1.182"/>
+                    </Button>
+                    <Button x:Name ="Circle_shape" HorizontalAlignment="Center" Height="28" Margin="-92,33,46,0" VerticalAlignment="Center" Width="46" Click="Circle_shape_Click" Grid.Row="1" >
+                        <Ellipse HorizontalAlignment="Left" Height="15" Stroke="Black" VerticalAlignment="Top" Width="15"/>
+                    </Button>
+                    <Button x:Name ="Arrow_shape" HorizontalAlignment="Center" Height="28" Margin="-46,33,0,0" VerticalAlignment="Center" Width="46" Click="Arrow_shape_Click" Grid.Row="1" >
+                        <Image Source="Images/arrow.png" Width="48"/>
+                    </Button>
+                    <Button x:Name ="Heart_shape" HorizontalAlignment="Center" Height="28" Margin="0,33,-46,0" VerticalAlignment="Center" Width="46" Click="Heart_shape_Click" Grid.Row="1" >
+                        <Image Source="Images/heart.png" Width="48"/>
+                    </Button>
+                    <Button x:Name ="Star_shape" HorizontalAlignment="Center" Height="28" Margin="0,5,-46,28" VerticalAlignment="Center" Width="46" Click="Star_shape_Click" Grid.Row="1" >
+                        <Image Source="Images/star.png" Width="48"/>
+                    </Button>
+                </RibbonGroup>
+                <RibbonGroup Header="Size" Margin="0,1" Width="85" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <ComboBox Name="cboStyles" Margin="0,19,0,0" HorizontalAlignment="Center" Width="69" RenderTransformOrigin="0.5,0.5" Height="43" VerticalAlignment="Center" SelectionChanged="cboStyles_SelectionChanged" Grid.Row="1" SelectedIndex="0">
+                        <Line Name ="T1" X1="0" Y1="0" Y2="1" X2="1" Stroke="Black" Stretch="Fill" RenderTransformOrigin="0.817,0.832" Height="32" Width="31" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Line.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-45.43"/>
+                                    <TranslateTransform X="0.848" Y="-8.623"/>
+                                </TransformGroup>
+                            </Line.RenderTransform>
+                        </Line>
+                        <Line Name ="T2" X1="0" Y1="0" Y2="1" X2="1" Stroke="Black" Stretch="Fill" RenderTransformOrigin="0.817,0.832" Height="32" Width="31" StrokeThickness="2" >
+                            <Line.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-45.43"/>
+                                    <TranslateTransform X="0.848" Y="-8.623"/>
+                                </TransformGroup>
+                            </Line.RenderTransform>
+                        </Line>
+                        <Line Name ="T3" X1="0" Y1="0" Y2="1" X2="1" Stroke="Black" Stretch="Fill" RenderTransformOrigin="0.817,0.832" Height="32" Width="31" StrokeThickness="3" >
+                            <Line.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-45.43"/>
+                                    <TranslateTransform X="0.848" Y="-8.623"/>
+                                </TransformGroup>
+                            </Line.RenderTransform>
+                        </Line>
+                        <Line Name ="T4" X1="0" Y1="0" Y2="1" X2="1" Stroke="Black" Stretch="Fill" RenderTransformOrigin="0.817,0.832" Height="32" Width="31" StrokeThickness="4" >
+                            <Line.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-45.43"/>
+                                    <TranslateTransform X="0.848" Y="-8.623"/>
+                                </TransformGroup>
+                            </Line.RenderTransform>
+                        </Line>
+                        <Line Name ="T5" X1="0" Y1="0" Y2="1" X2="1" Stroke="Black" Stretch="Fill" RenderTransformOrigin="0.817,0.832" Height="32" Width="31" StrokeThickness="5" >
+                            <Line.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-45.43"/>
+                                    <TranslateTransform X="0.848" Y="-8.623"/>
+                                </TransformGroup>
+                            </Line.RenderTransform>
+                        </Line>
+                    </ComboBox>
+                </RibbonGroup>
+                <RibbonGroup Header="Style Outline" HorizontalAlignment="Center" Margin="1" Width="85" Height="86" VerticalAlignment="Center">
+                    <ComboBox x:Name="Style" HorizontalAlignment="Center" Margin="0,20,0,-2" Width="69" RenderTransformOrigin="0.592,0.538" VerticalAlignment="Center" Height="43" SelectedIndex="0" SelectionChanged="cbo_Linestyle">
+                        <ComboBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.239"/>
+                                <TranslateTransform X="-0.026" Y="0.006"/>
+                            </TransformGroup>
+                        </ComboBox.RenderTransform>
+
+                        <ComboBoxItem Tag="1" Margin="1" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <Image Source="Images/style 1.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="2" Height="40">
+                            <Image Source="Images/style 2.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="3" Height="40">
+                            <Image Source="Images/style 3.png"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </RibbonGroup>
+
+                <RibbonGroup Header="Line Color" Margin="0,1" Width="170">
+                    <ListBox HorizontalAlignment="Center" VerticalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="colorList" SelectionChanged="colorList_SelectionChanged" Height="62" RenderTransformOrigin="0.5,0.5" Width="150" Margin="7,0,-44,0">
+                        <ListBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="0.219"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="0.996"/>
+                            </TransformGroup>
+                        </ListBox.RenderTransform>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Rectangle Fill="{Binding Name}" Width="20" Height="20" Stroke="#FF211E1E" OpacityMask="Black" StrokeThickness="1" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </RibbonGroup>
+                <RibbonGroup Header="Fill Color" Margin="0,1" Width="170">
+                    <ListBox HorizontalAlignment="Center" VerticalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="colorFill" SelectionChanged="colorFill_SelectionChanged" Height="62" RenderTransformOrigin="0.5,0.5" Width="150" Margin="6,0,-43,0">
+                        <ListBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="0.219"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="0.996"/>
+                            </TransformGroup>
+                        </ListBox.RenderTransform>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Rectangle Fill="{Binding Name}" Width="20" Height="20" Stroke="#FF211E1E" OpacityMask="Black" StrokeThickness="1" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </RibbonGroup>
+                <RibbonGroup Header="Text" Margin="0,1" Width="255">
+                    <RibbonButton SmallImageSource="Images\text.png" Label="Text" Click="btn_addtext" Height="18" RenderTransformOrigin="0.646,0.889" Margin="0,3,0,0"/>
+                    <!--<RibbonButton SmallImageSource="Images\color.png" Label="Text Color" Click="btn_textcolor"/>-->
+                    <Label Content="Text Color" Margin="0,25,0,-25"></Label>
+                    <ComboBox Name="cbo_color" Margin="-59,28,48,-3" HorizontalAlignment="Center" Width="50" Height="25" VerticalAlignment="Center" SelectedIndex="0" SelectionChanged="cbo_textcolor">
+                        <ComboBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.239"/>
+                                <TranslateTransform X="-0.026" Y="0.006"/>
+                            </TransformGroup>
+                        </ComboBox.RenderTransform>
+                        
+                        <ComboBoxItem Tag="1" Margin="1" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <Image Source="Images/white.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="2" Height="40">
+                            <Image Source="Images/Black.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="3" Height="40">
+                            <Image Source="Images/Red.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="4" Height="40">
+                            <Image Source="Images/Orange.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="5" Height="40">
+                            <Image Source="Images/Yellow.jpg"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="6" Height="40">
+                            <Image Source="Images/Green.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="7" Height="40">
+                            <Image Source="Images/Blue.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="8" Height="40">
+                            <Image Source="Images/Purple.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="9" Height="40">
+                            <Image Source="Images/Gray.png"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <RibbonButton SmallImageSource="Images\font.jpg" Label="Font" Click="btn_font"/>
+                    <Label Content="Text Size" Margin="0,22,0,-22"/>
+                    <ComboBox x:Name="cbo_textsize" Margin="-53,26,54,-1" HorizontalAlignment="Center" Width="53" RenderTransformOrigin="0.5,0.5" Height="25" VerticalAlignment="Center" SelectionChanged="cbo_size" Grid.Row="1">
+                        <ComboBoxItem Content="10" IsSelected="True"/>
+                        <ComboBoxItem Content="12"/>
+                        <ComboBoxItem Content="14"/>
+                        <ComboBoxItem Content="16"/>
+                        <ComboBoxItem Content="18"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="22"/>
+                        <ComboBoxItem Content="24"/>
+                        <ComboBoxItem Content="26"/>
+                        <ComboBoxItem Content="28"/>
+                        <ComboBoxItem Content="36"/>
+                        <ComboBoxItem Content="48"/>
+                        <ComboBoxItem Content="72"/>
+                    </ComboBox>
+                    <Label Content="Background" Margin="-42,45,42,-45"/>
+                    <ComboBox x:Name="cbo_Background" HorizontalAlignment="Center" Margin="-28,-1,63,0" VerticalAlignment="Center" Width="50" Height="27" SelectedIndex="0" SelectionChanged="cbo_background">
+                        <ComboBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.239"/>
+                                <TranslateTransform X="-0.026" Y="0.006"/>
+                            </TransformGroup>
+                        </ComboBox.RenderTransform>
+
+                        <ComboBoxItem Tag="1" Margin="1" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <Image Source="Images/white.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="2" Height="40">
+                            <Image Source="Images/Black.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="3" Height="40">
+                            <Image Source="Images/Red.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="4" Height="40">
+                            <Image Source="Images/Orange.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="5" Height="40">
+                            <Image Source="Images/Yellow.jpg"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="6" Height="40">
+                            <Image Source="Images/Green.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="7" Height="40">
+                            <Image Source="Images/Blue.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="8" Height="40">
+                            <Image Source="Images/Purple.png"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="9" Height="40">
+                            <Image Source="Images/Gray.png"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+
+                </RibbonGroup>
+            </RibbonTab>
+            <!-- Ribbon Tab #2: -->
+            <RibbonTab Header="View" KeyTip="I">
+            </RibbonTab>
+            <!-- Ribbon Tab #3: -->
+            <RibbonTab Header="PageLayout" KeyTip="L"/>
+        </Ribbon>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="0,10,396,-159" Grid.Row="1">
+            <Canvas x:Name ="paintCanvas" Background="White" HorizontalAlignment="Left" Height="1389" VerticalAlignment="Top" Width="2111" MouseDown="paintCanvas_MouseDown" MouseMove="paintCanvas_MouseMove" MouseUp="paintCanvas_MouseUp" Grid.Row="1">
+                
+            </Canvas>
+        </ScrollViewer>
+    </Grid>
+
+</Window>
